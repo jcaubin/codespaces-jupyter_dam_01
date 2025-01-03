@@ -1,4 +1,4 @@
-
+data/
 notebooks/data
 notebooks/cifar_net.pth
 .ipynb_checkpoints/
@@ -7,3 +7,5 @@ notebooks/cifar_net.pth
 .devcontainer/
 
 
+.devcontainer/devcontainer.json
+.devcontainer/icon.svg
