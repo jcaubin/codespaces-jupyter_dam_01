@@ -40,6 +40,6 @@ def convert_notebook_to_html(notebook_name):
         print(f"An error occurred: {e}")
 
 # Example usage
-notebook_name = 'pato_meteo.ipynb'
+notebook_name = 'pato_meteo_report.ipynb'
 
 convert_notebook_to_html( notebook_name)
