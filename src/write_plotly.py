@@ -36,7 +36,7 @@ date = datetime.now().strftime('%Y-%m-%d %H:%M:%S ')
 fig = px.bar(df, x="fecha", y="precip_media", title = 'Precipitación media')
 fig2 = px.box(df2, x= 'fecha', y = 'total', title = 'Distribución precipitaciones', hover_name='ESTACION_DESC')
 plotly_jinja_data = {
-        "fig":fig.to_html(full_html=False, include_plotlyjs=False), 
+        "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
         "fig2":fig2.to_html(full_html=False, include_plotlyjs=False),
         "date" : date
         }
