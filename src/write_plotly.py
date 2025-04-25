@@ -38,7 +38,8 @@ fig2 = px.box(df2, x= 'fecha', y = 'total', title = 'Distribución precipitacion
 plotly_jinja_data = {
         "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
         "fig2":fig2.to_html(full_html=False, include_plotlyjs=False),
-        "date" : date
+        "date" : date,
+        "title":"Precipitaciones"
         }
 
 environment = Environment(loader=FileSystemLoader("templates/"))
