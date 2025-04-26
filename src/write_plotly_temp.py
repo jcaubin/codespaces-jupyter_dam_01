@@ -1,6 +1,8 @@
 #grafica de temperaturas
 
 import plotly.express as px
+import plotly.io as pio
+import plotly.graph_objects as go
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
@@ -16,6 +18,7 @@ with duckdb.connect('/home/jcaubin/duck_test.db') as conn:
                 order by  TS, estacion_desc
         """).df()
 
+pio.templates.default = "plotly_dark"
 
 date = datetime.now().strftime('%Y-%m-%d %H:%M:%S ')
 fig = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución temperaturas', hover_name='ESTACION_DESC')
