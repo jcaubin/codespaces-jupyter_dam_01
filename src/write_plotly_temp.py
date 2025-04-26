@@ -25,9 +25,9 @@ plotly_jinja_data = {
         "title": "Temperaturas"
         }
 
-environment = Environment(loader=FileSystemLoader("templates/"))
+environment = Environment(loader=FileSystemLoader("/home/jcaubin/code/codespaces-jupyter_dam_01/templates/"))
 template = environment.get_template("plotly.html")
-output_html_path="reports/temperaturas.html"
+output_html_path="/home/jcaubin/code/codespaces-jupyter_dam_01/reports/temperaturas.html"
 with open(output_html_path, "w", encoding="utf-8") as output_file:
         output_file.write(template.render(plotly_jinja_data))
 
