@@ -2,6 +2,15 @@
 <html data-bs-theme="dark">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BCBM9LRTT2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BCBM9LRTT2');
+    </script>
     <meta charset="utf-8" />
     <!--It is necessary to use the UTF-8 encoding with plotly graphics to get e.g. negative signs to render correctly -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,19 +20,22 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>{{title}}</title>
+    <meta name="description"
+        content="Representación de los datos meteorologicos en tiempo real procedentes del Portal de Datos Abiertos del Ayuntamiento de Madrid">
+    <meta name="robots" content="index,follow">
 </head>
 
 <body style="background-color: rgb(18,18, 18);">
     <header class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-            <a class="navbar-brand" href="#">Datos Madrid</a>
+            <a class="navbar-brand" href="https://datos.madrid.es/">Datos Madrid</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" href="/index.html">Meteo</a>
+                    <a class="nav-link" href="/meteo.html">Meteo</a>
                     <a class="nav-link" href="/output.html">Precipitaciones</a>
                     <a class="nav-link" href="/temperaturas.html">Temperaturas</a>
                 </div>

@@ -44,8 +44,9 @@ plotly_jinja_data = {
 
 environment = Environment(loader=FileSystemLoader('/home/jcaubin/code/codespaces-jupyter_dam_01/templates/'))
 template = environment.get_template("plotly.html")
-output_html_path="/home/jcaubin/code/codespaces-jupyter_dam_01/reports/output.html"
+output_html_path="/home/jcaubin/code/codespaces-jupyter_dam_01/reports/index.html"
+
 with open(output_html_path, "w", encoding="utf-8") as output_file:
         output_file.write(template.render(plotly_jinja_data))
 
-#conn.close()        
+  
