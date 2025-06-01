@@ -20,7 +20,26 @@ def main():
                         order by  TS, estacion_desc
                 """).df()
 
-        pio.templates.default = "plotly_dark"
+        #pio.templates.default = "plotly_dark"
+
+        pio.templates["draft"] = go.layout.Template(
+        layout_annotations=[
+                dict(
+                name="draft watermark",
+                text="DRAFT",
+                textangle=-30,
+                opacity=0.1,
+                font=dict(color="white", size=100),
+                xref="paper",
+                yref="paper",
+                x=0.5,
+                y=0.5,
+                showarrow=False,
+                )
+        ]
+        )
+        pio.templates.default = "plotly_dark+draft"
+        
         fig = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución temperaturas', hover_name='ESTACION_DESC')
         plotly_jinja_data = {
                 "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
