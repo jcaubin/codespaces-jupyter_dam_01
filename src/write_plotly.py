@@ -38,13 +38,15 @@ fig2 = px.box(df2, x= 'fecha', y = 'total', title = 'Distribución precipitacion
 plotly_jinja_data = {
         "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
         "fig2":fig2.to_html(full_html=False, include_plotlyjs=False),
-        "date" : date
+        "date" : date,
+        "title":"Precipitaciones"
         }
 
-environment = Environment(loader=FileSystemLoader("templates/"))
+environment = Environment(loader=FileSystemLoader('/home/jcaubin/code/codespaces-jupyter_dam_01/templates/'))
 template = environment.get_template("plotly.html")
-output_html_path="reports/output.html"
+output_html_path="/home/jcaubin/code/codespaces-jupyter_dam_01/reports/index.html"
+
 with open(output_html_path, "w", encoding="utf-8") as output_file:
         output_file.write(template.render(plotly_jinja_data))
 
-#conn.close()        
+  
