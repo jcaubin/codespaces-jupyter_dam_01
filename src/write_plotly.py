@@ -33,8 +33,8 @@ with duckdb.connect('/home/jcaubin/duck_test.db') as conn:
 
 
 date = datetime.now().strftime('%Y-%m-%d %H:%M:%S ')
-fig = px.bar(df, x="fecha", y="precip_media", title = 'Precipitación media')
-fig2 = px.box(df2, x= 'fecha', y = 'total', title = 'Distribución precipitaciones', hover_name='ESTACION_DESC')
+fig = px.bar(df, x="fecha", y="precip_media", title = 'Precipitación media',  template='plotly_dark')
+fig2 = px.box(df2, x= 'fecha', y = 'total', title = 'Distribución precipitaciones', hover_name='ESTACION_DESC', template='plotly_dark')
 plotly_jinja_data = {
         "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
         "fig2":fig2.to_html(full_html=False, include_plotlyjs=False),

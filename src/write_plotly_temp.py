@@ -16,13 +16,14 @@ def main():
                         from v_CALAIR 
                         where magnitud = 83
                         and validez = 'V'
-                        and date_diff ('hour',TS, current_localtimestamp()) < (24)
+                        and date_diff ('hour',TS, current_localtimestamp()) < (48)
                         order by  TS, estacion_desc
                 """).df()
 
 
         #pio.templates.default = "plotly_dark"        
-        fig = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución temperaturas2', hover_name='ESTACION_DESC',  color_discrete_sequence=["#8484A7"], template='plotly_dark')
+        fig = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución temperaturas2', hover_name='ESTACION_DESC',  
+                     color_discrete_sequence=["#8484A7"], template='plotly_dark')
 
         plotly_jinja_data = {
                 "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
