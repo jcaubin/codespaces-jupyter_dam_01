@@ -1,0 +1,39 @@
+fields:
+  - name: num_expediente
+    type: string
+  - name: fecha
+    type: string
+  - name: hora
+    type: string
+  - name: localizacion
+    type: string
+  - name: numero
+    type: string
+  - name: cod_distrito
+    type: integer
+  - name: distrito
+    type: string
+  - name: tipo_accidente
+    type: string
+  - name: estado_meteorológico
+    type: string
+  - name: tipo_vehiculo
+    type: string
+  - name: tipo_persona
+    type: string
+  - name: rango_edad
+    type: string
+  - name: sexo
+    type: string
+  - name: cod_lesividad
+    type: integer
+  - name: lesividad
+    type: string
+  - name: coordenada_x_utm
+    type: number
+  - name: coordenada_y_utm
+    type: number
+  - name: positiva_alcohol
+    type: string
+  - name: positiva_droga
+    type: any
