@@ -16,19 +16,27 @@ def main():
                         from v_CALAIR 
                         where magnitud = 83
                         and validez = 'V'
-                        and date_diff ('hour',TS, current_localtimestamp()) < (48)
+                        and date_diff ('hour',TS, current_localtimestamp()) < (25)
                         order by  TS, estacion_desc
-                """).df()
-
-
-        #pio.templates.default = "plotly_dark"        
-        fig = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución temperaturas2', hover_name='ESTACION_DESC',  
-                     color_discrete_sequence=["#8484A7"], template='plotly_dark')
+                """).df()      
+                fig = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución diaria', hover_name='ESTACION_DESC',  
+                        color_discrete_sequence=["#8484A7"], template='plotly_dark')
+                df = conn.sql("""
+                        select TS, dia,  h, estacion_desc,valor 
+                        from v_CALAIR 
+                        where magnitud = 83
+                        and validez = 'V'
+                        and date_diff ('hour',TS, current_localtimestamp()) < (7*24)+1
+                        order by  TS, estacion_desc
+                """).df()   
+                fig2 = px.box(df, x= 'TS', y = 'VALOR', title = 'Distribución temperaturas semanal', hover_name='ESTACION_DESC',  
+                        color_discrete_sequence=["#8484A7"], template='plotly_dark')
 
         plotly_jinja_data = {
-                "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='600px'), 
+                "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='100%'), 
                 "date" : datetime.now().strftime('%Y-%m-%d %H:%M:%S '),
-                "title": "Temperaturas"
+                "title": "Temperaturas",
+                "fig2":fig2.to_html(full_html=False, include_plotlyjs=False, default_width='100%'),
                 }
 
         environment = Environment(loader=FileSystemLoader("/home/jcaubin/code/codespaces-jupyter_dam_01/templates/"))
