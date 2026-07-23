@@ -10,7 +10,7 @@ import duckdb
 
 
 def main():
-        with duckdb.connect('/home/jcaubin/duck_test.db') as conn:
+        with duckdb.connect('/home/jcaubin/datos/duck_test.db') as conn:
                 df = conn.sql("""
                         select TS, dia,  h, estacion_desc,valor 
                         from v_CALAIR 
@@ -39,9 +39,9 @@ def main():
                 "fig2":fig2.to_html(full_html=False, include_plotlyjs=False, default_width='100%'),
                 }
 
-        environment = Environment(loader=FileSystemLoader("/home/jcaubin/code/codespaces-jupyter_dam_01/templates/"))
+        environment = Environment(loader=FileSystemLoader("/home/jcaubin/codigo/codespaces-jupyter_dam_01/templates/"))
         template = environment.get_template("plotly.html")
-        output_html_path="/home/jcaubin/code/codespaces-jupyter_dam_01/reports/temperaturas.html"
+        output_html_path="/home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/temperaturas.html"
         with open(output_html_path, "w", encoding="utf-8") as output_file:
                 output_file.write(template.render(plotly_jinja_data))
 
