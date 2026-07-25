@@ -27,12 +27,12 @@ notebook_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/notebooks/$notebook
 #precipitaciones2
 echo "precipitaciones2"
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly.py
-sudo cp /home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/index.html /var/www/html/meteo/index.html
+cp /home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/index.html /var/www/html/meteo/index.html
 
 #temperaturas
 echo "temperaturas"
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_temp.py
-sudo cp /home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/temperaturas.html /var/www/html/meteo/temperaturas.html
+cp /home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/temperaturas.html /var/www/html/meteo/temperaturas.html
 
 #####################################
 
@@ -44,7 +44,7 @@ report_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/$report_name
 notebook_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/notebooks/$notebook_name.ipynb
 
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/jupyter nbconvert --to html --execute --no-input --output $report_path $notebook_path
-sudo cp $report_path /var/www/html/meteo/$report_name
+cp $report_path /var/www/html/meteo/$report_name
 
 
 #precipitaciones
@@ -56,5 +56,5 @@ report_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/$report_name
 notebook_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/notebooks/$notebook_name.ipynb
 
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/jupyter nbconvert --to html --execute --no-input --output $report_path $notebook_path
-sudo cp $report_path /var/www/html/meteo/$report_name
+cp $report_path /var/www/html/meteo/$report_name
 
