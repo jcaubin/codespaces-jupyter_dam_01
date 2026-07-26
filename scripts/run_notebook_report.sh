@@ -1,5 +1,6 @@
 #ejecuta el nb 
-
+#DATOS METEO
+#DESCARGA Y GUARDA LOS DATOS METEO EN DDB
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 echo "Current Time : $current_time"
 
@@ -13,6 +14,8 @@ notebook_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/notebooks/$notebook
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/jupyter nbconvert --to markdown --execute --no-input --output $report_path $notebook_path
 
 ####################
+#DATOS CALAIR
+#DESCARGA Y GUARDA LOS DATOS DE CALIDAD EN DDB
 
 notebook_name=pato_calair_data
 report_name=$notebook_name.$current_time.md
