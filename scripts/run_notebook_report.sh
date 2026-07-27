@@ -61,3 +61,9 @@ notebook_path=/home/jcaubin/codigo/codespaces-jupyter_dam_01/notebooks/$notebook
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/jupyter nbconvert --to html --execute --no-input --output $report_path $notebook_path
 cp $report_path /var/www/html/meteo/$report_name
 
+
+#general, escribe directamente en var-wwww
+echo "general"
+/home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_general.py
+
+
