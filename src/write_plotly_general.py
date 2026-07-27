@@ -28,6 +28,8 @@ def main():
                 """).df()      
                 fig = px.box(df, x= 'TS', y = 'VALOR', title = f'Distribución diaria - {parametro_nombre}', hover_name='ESTACION_DESC',  
                         color_discrete_sequence=["#8484A7"], template='plotly_dark')
+                fig.add_hline(y=15, line_dash='dash', line_color='red', annotation_text='Límite OMS: 15 µg/m³', annotation_position='top right')
+
                 df = conn.sql(f"""
                         select TS, dia,  h, estacion_desc,valor 
                         from v_CALAIR 
@@ -38,6 +40,7 @@ def main():
                 """).df()   
                 fig2 = px.box(df, x= 'TS', y = 'VALOR', title = f'Distribución semanal - {parametro_nombre}', hover_name='ESTACION_DESC',  
                         color_discrete_sequence=["#8484A7"], template='plotly_dark')
+                fig2.add_hline(y=15, line_dash='dash', line_color='red', annotation_text='Límite OMS: 15 µg/m³', annotation_position='top right')
 
 
         plotly_jinja_data = {
