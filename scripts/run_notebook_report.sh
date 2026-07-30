@@ -66,4 +66,7 @@ cp $report_path /var/www/html/meteo/$report_name
 echo "general"
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_general.py
 
+echo "ozono"
+/home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_ozono.py
+
 
