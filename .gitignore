@@ -9,3 +9,4 @@ notebooks/cifar_net.pth
 
 .devcontainer/devcontainer.json
 .devcontainer/icon.svg
+**/__pycache__/
