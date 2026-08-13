@@ -42,8 +42,6 @@ echo "temperaturas"
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_temp.py
 cp /home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/temperaturas.html /var/www/html/meteo/temperaturas.html
 
-echo "general"
-/home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_general.py
 
 echo "ozono"
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_ozono.py
@@ -52,3 +50,5 @@ echo "radiacion"
 /home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_radiacion.py
 
 
+echo "magnitudes"
+/home/jcaubin/codigo/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/codigo/codespaces-jupyter_dam_01/src/write_plotly_magnitud.py
