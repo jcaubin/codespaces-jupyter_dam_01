@@ -9,7 +9,7 @@ from datetime import datetime
 import duckdb
 
 
-def informe_magnitud(magnitud, page_name, limite = 0):
+def informe_magnitud(magnitud, page_name, limites = []):
 
         with duckdb.connect('/home/jcaubin/datos/duck_test.db') as conn:
                 magnitud_nombre, unidad = conn.sql(f"""
@@ -37,14 +37,14 @@ def informe_magnitud(magnitud, page_name, limite = 0):
                 """).df()   
                 fig2 = px.box(df, x= 'TS', y = 'VALOR', title = f'Distribución semanal - {magnitud_nombre}', hover_name='ESTACION_DESC',  
                         color_discrete_sequence=["#8484A7"], template='plotly_dark', labels={'VALOR': unidad, 'TS': 'Fecha'})
-                if limite > 0:
-                        fig.add_hline(y=limite, line_dash='dash', line_color='red', annotation_text='límite', annotation_position='top right', line_width=1)
-                        fig2.add_hline(y=limite, line_dash='dash', line_color='red', annotation_text='límite', annotation_position='top right', line_width=1)   
+                for limite in limites:
+                        fig.add_hline(y=limite, line_dash='dash', line_color='red', annotation_text='', annotation_position='top right', line_width=1)
+                        fig2.add_hline(y=limite, line_dash='dash', line_color='red', annotation_text='', annotation_position='top right', line_width=1)   
                 
         plotly_jinja_data = {
                 "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='100%'), 
                 "date" : datetime.now().strftime('%Y-%m-%d %H:%M:%S '),
-                "title": f"Magnitud {magnitud_nombre}",
+                "title": f"{magnitud_nombre}",
                 "fig2":fig2.to_html(full_html=False, include_plotlyjs=False, default_width='100%'),
                 }
 
@@ -55,6 +55,10 @@ def informe_magnitud(magnitud, page_name, limite = 0):
                 output_file.write(template.render(plotly_jinja_data))
 
 if __name__=='__main__' :
-        informe_magnitud(magnitud=12, page_name='nox', limite=200)
-        informe_magnitud(magnitud=10, page_name='pm10', limite=50)
-        informe_magnitud(magnitud=9, page_name='pm25', limite=25)
+        informe_magnitud(magnitud=12, page_name='nox', limites=[200])
+        informe_magnitud(magnitud=10, page_name='pm10', limites=[50])
+        informe_magnitud(magnitud=9, page_name='pm25', limites=[25])
+        informe_magnitud(magnitud=14, page_name='ozono', limites=[120, 180, 240]) #ozono
+        informe_magnitud(magnitud=88, page_name='radiacion') #radiacion
+        informe_magnitud(magnitud=83, page_name='temperaturas') #temperatura
+
