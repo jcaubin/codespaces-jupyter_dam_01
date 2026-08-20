@@ -61,4 +61,6 @@ if __name__=='__main__' :
         informe_magnitud(magnitud=14, page_name='ozono', limites=[120, 180, 240]) #ozono
         informe_magnitud(magnitud=88, page_name='radiacion') #radiacion
         informe_magnitud(magnitud=83, page_name='temperaturas') #temperatura
+        informe_magnitud(magnitud=86, page_name='humedad') #humedad relativa
+        
 
