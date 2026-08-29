@@ -42,10 +42,11 @@ mdit-py-plugins==0.4.2
 mdurl==0.1.2
 mistune==3.1.0
 monotonic==1.6
+narwhals==2.24.0
 nbclient==0.10.2
 nbconvert==7.16.5
 nbformat==5.10.4
-nest-asyncio==1.6.0
+nest_asyncio==1.6.0
 numpy==2.2.1
 packaging==24.2
 pandas==2.2.3
@@ -55,8 +56,10 @@ param==2.2.0
 parso==0.8.4
 pexpect==4.9.0
 pillow==11.1.0
+pip==25.1.1
 platformdirs==4.3.6
 ploomber-core==0.2.26
+plotly==6.9.0
 polars==1.18.0
 posthog==3.7.4
 prettytable==3.12.0
