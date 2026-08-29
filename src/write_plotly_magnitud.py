@@ -7,11 +7,16 @@ from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 import duckdb
+from pathlib import Path
 
+BD_PATH = '/home/jcaubin/datos/duck_test.db'
+OUTPUT_DIR = '/var/www/html/meteo'
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+TEMPLATES_DIR = PROJECT_ROOT / "templates"
 
 def informe_magnitud(magnitud, page_name, limites = []):
 
-        with duckdb.connect('/home/jcaubin/datos/duck_test.db') as conn:
+        with duckdb.connect(BD_PATH) as conn:
                 magnitud_nombre, unidad = conn.sql(f"""
                         SELECT  PARAMETRO, UNIDAD
                         FROM duck_test.main.magnitudes
@@ -48,9 +53,9 @@ def informe_magnitud(magnitud, page_name, limites = []):
                 "fig2":fig2.to_html(full_html=False, include_plotlyjs=False, default_width='100%'),
                 }
 
-        environment = Environment(loader=FileSystemLoader("/home/jcaubin/codigo/codespaces-jupyter_dam_01/templates/"))
+        environment = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
         template = environment.get_template("plotly.html")
-        output_html_path=f"/var/www/html/meteo/{page_name}.html"
+        output_html_path=f"{OUTPUT_DIR}/{page_name}.html"
         with open(output_html_path, "w", encoding="utf-8") as output_file:
                 output_file.write(template.render(plotly_jinja_data))
 
