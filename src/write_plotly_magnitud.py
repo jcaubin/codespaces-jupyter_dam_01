@@ -9,14 +9,14 @@ from datetime import datetime
 import duckdb
 from pathlib import Path
 
-BD_PATH = '/home/jcaubin/datos/duck_test.db'
+DB_PATH = '/home/jcaubin/datos/duck_test.db'
 OUTPUT_DIR = '/var/www/html/meteo'
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
 
 def informe_magnitud(magnitud, page_name, limites = []):
 
-        with duckdb.connect(BD_PATH) as conn:
+        with duckdb.connect(DB_PATH) as conn:
                 magnitud_nombre, unidad = conn.sql(f"""
                         SELECT  PARAMETRO, UNIDAD
                         FROM duck_test.main.magnitudes
