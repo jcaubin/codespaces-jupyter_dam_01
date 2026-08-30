@@ -63,5 +63,5 @@ SELECT
     altitud,
     parametro,
     fx_data,
-    make_timestamp(ano, mes, dia, h, 0, 0.0) AS ts
+    make_timestamp(ANO, CAST(MES AS INTEGER), DIA, H, 0, 0.0) AS TS
 FROM calair;   
