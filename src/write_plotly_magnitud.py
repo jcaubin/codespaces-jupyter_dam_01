@@ -9,10 +9,14 @@ from datetime import datetime
 import duckdb
 from pathlib import Path
 
-DB_PATH = '/home/jcaubin/datos/duck_test.db'
+
 OUTPUT_DIR = '/var/www/html/meteo'
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
+DATA_DIR = PROJECT_ROOT / "data"
+DB_PATH = DATA_DIR / 'duck_test.db'
+
 
 def informe_magnitud(magnitud, page_name, limites = []):
 

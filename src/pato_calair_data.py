@@ -17,7 +17,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 MAESTRAS_DIR = PROJECT_ROOT / "maestras"
 SCHEMA_PATH = PROJECT_ROOT / "sql" / "001_schema.sql"
 
-DB_PATH = '/home/jcaubin/datos/duck_test.db'
+DB_PATH = DATA_DIR / 'duck_test.db'
 
 ULR_CALAIR_CSV = "https://datos.madrid.es/dataset/212531-0-calidad-aire-tiempo-real/resource/212531-2-calidad-aire-tiempo-real/download/212531-2-calidad-aire-tiempo-real.csv"
 URL_ESTACIONES_CALAIR = "https://datos.madrid.es/dataset/212629-0-estaciones-control-aire/resource/212629-0-estaciones-control-aire-csv/download/212629-0-estaciones-control-aire-csv.csv"
