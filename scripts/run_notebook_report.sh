@@ -19,7 +19,7 @@ echo "INFORMES DE MAGNITUDES"
 "${VENV_PYTHON}" "${PROJECT_ROOT}/src/write_plotly_magnitud.py"
 
 #precipitaciones2
-#echo "precipitaciones"
+echo "precipitaciones"
 "${VENV_PYTHON}" "${PROJECT_ROOT}/src/write_plotly.py"
 
 
