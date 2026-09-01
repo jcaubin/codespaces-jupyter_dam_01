@@ -3,8 +3,19 @@ from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 import duckdb
+from pathlib import Path
 
-with duckdb.connect('/home/jcaubin/datos/duck_test.db') as conn:
+
+OUTPUT_DIR = '/var/www/html/meteo'
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+TEMPLATES_DIR = PROJECT_ROOT / "templates"
+DATA_DIR = PROJECT_ROOT / "data"
+DB_PATH = DATA_DIR / 'duck_test.db'
+
+page_name = 'index'
+
+with duckdb.connect(DB_PATH) as conn:
         conn.sql("""
         CREATE OR REPLACE TEMP TABLE precip_total_estacion AS         
         select ano, mes, dia, make_date(ano, cast(mes as int), dia) fecha , estacion,estacion_desc, sum(valor) total
@@ -42,9 +53,9 @@ plotly_jinja_data = {
         "title":"Precipitaciones"
         }
 
-environment = Environment(loader=FileSystemLoader('/home/jcaubin/codigo/codespaces-jupyter_dam_01/templates/'))
+environment = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
 template = environment.get_template("plotly.html")
-output_html_path="/home/jcaubin/codigo/codespaces-jupyter_dam_01/reports/index.html"
+output_html_path=f"{OUTPUT_DIR}/{page_name}.html"
 
 with open(output_html_path, "w", encoding="utf-8") as output_file:
         output_file.write(template.render(plotly_jinja_data))

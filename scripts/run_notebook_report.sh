@@ -19,9 +19,9 @@ echo "INFORMES DE MAGNITUDES"
 "${VENV_PYTHON}" "${PROJECT_ROOT}/src/write_plotly_magnitud.py"
 
 #precipitaciones2
-#echo "precipitaciones2"
-#/home/jcaubin/code/codespaces-jupyter_dam_01/.env/bin/python /home/jcaubin/code/codespaces-jupyter_dam_01/src/write_plotly.py
-#cp /home/jcaubin/code/codespaces-jupyter_dam_01/reports/index.html /var/www/html/meteo/index.html
+#echo "precipitaciones"
+"${VENV_PYTHON}" "${PROJECT_ROOT}/src/write_plotly.py"
+
 
 #temperaturas
 #echo "temperaturas"
