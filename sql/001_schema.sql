@@ -65,3 +65,21 @@ SELECT
     fx_data,
     make_timestamp(ANO, CAST(MES AS INTEGER), DIA, H, 0, 0.0) AS TS
 FROM calair;   
+
+
+--TABLAS PORTUS
+CREATE TABLE IF NOT EXISTS PORTUS (
+    fecha TIMESTAMP_NS, 
+    station BIGINT, 
+    id BIGINT, 
+    nombreParametro VARCHAR, 
+    nombreColumna VARCHAR, 
+    paramEseoo VARCHAR, 
+    valor VARCHAR, 
+    factor DOUBLE, 
+    unidad VARCHAR, 
+    paramQC BOOLEAN, 
+    "variable" VARCHAR, 
+    averia BOOLEAN, 
+    FX_DATA TIMESTAMP, 
+    PRIMARY KEY(fecha, station, id));

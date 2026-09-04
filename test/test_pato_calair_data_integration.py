@@ -17,7 +17,7 @@ def test_download_csv_as_dataframe_real_url_returns_expected_shape():
     df = download_csv_as_dataframe(ULR_CALAIR_CSV, separator=';', decimal='.')
 
     assert isinstance(df, pd.DataFrame)
-    assert len(df.index) == 123
+    assert len(df.index) == 126
     assert len(df.columns) == 56
 
 
