@@ -83,3 +83,21 @@ CREATE TABLE IF NOT EXISTS PORTUS (
     averia BOOLEAN, 
     FX_DATA TIMESTAMP, 
     PRIMARY KEY(fecha, station, id));
+
+
+-- duck_test.main.PORTUS_CURRENT_DATA definition
+
+CREATE TABLE IF NOT EXISTS PORTUS_CURRENT_DATA(
+    fecha TIMESTAMP_NS, 
+    station BIGINT, 
+    id BIGINT, 
+    nombreParametro VARCHAR, 
+    nombreColumna VARCHAR, 
+    paramEseoo VARCHAR, 
+    valor VARCHAR, 
+    factor DOUBLE, 
+    unidad VARCHAR, 
+    paramQC BOOLEAN, 
+    "variable" VARCHAR, 
+    averia BOOLEAN, 
+    FX_DATA TIMESTAMP);
