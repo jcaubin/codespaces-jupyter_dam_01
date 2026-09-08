@@ -19,6 +19,7 @@ DB_PATH = DATA_DIR / 'duck_test.db'
 
 
 def informe_magnitud(magnitud, page_name, limites = []):
+        print(f"Generando informe desde {DB_PATH} ")
 
         with duckdb.connect(DB_PATH) as conn:
                 magnitud_nombre, unidad = conn.sql(f"""
@@ -62,6 +63,7 @@ def informe_magnitud(magnitud, page_name, limites = []):
         output_html_path=f"{OUTPUT_DIR}/{page_name}.html"
         with open(output_html_path, "w", encoding="utf-8") as output_file:
                 output_file.write(template.render(plotly_jinja_data))
+        print(f"Archivo generado: {output_html_path}")
 
 if __name__=='__main__' :
         informe_magnitud(magnitud=12, page_name='nox', limites=[200])
