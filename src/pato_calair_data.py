@@ -73,9 +73,9 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
                 ESTACION,
                 MAGNITUD,
                 PUNTO_MUESTREO,
-                ANO,
-                MES,
-                DIA,
+                CAST(ANO AS INTEGER) AS ANO,
+                CAST(MES AS INTEGER) AS MES,
+                CAST(DIA AS INTEGER) AS DIA,
                 CAST(RIGHT(HORA, 2) AS INTEGER) AS H,
                 VALOR
             FROM CALAIR2
@@ -98,9 +98,9 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
                 ESTACION,
                 MAGNITUD,
                 PUNTO_MUESTREO,
-                ANO,
-                MES,
-                DIA,
+                CAST(ANO AS INTEGER) AS ANO,
+                CAST(MES AS INTEGER) AS MES,
+                CAST(DIA AS INTEGER) AS DIA,
                 CAST(RIGHT(HORA, 2) AS INTEGER) AS H,
                 VALIDEZ
             FROM CALAIR2
@@ -151,9 +151,9 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
                 ESTACION,
                 MAGNITUD,
                 concat(PROVINCIA, MUNICIPIO, ESTACION,  '_' ,MAGNITUD, '_98') PUNTO_MUESTREO,
-                ANO,
-                MES,
-                DIA,
+                CAST(ANO AS INTEGER) AS ANO,
+                CAST(MES AS INTEGER) AS MES,
+                CAST(DIA AS INTEGER) AS DIA,
                 CAST(RIGHT(HORA, 2) AS INTEGER) AS H,
                 VALOR
             FROM METEO2
@@ -176,9 +176,9 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
                 ESTACION,
                 MAGNITUD,
                 concat(PROVINCIA, MUNICIPIO, ESTACION,  '_' ,MAGNITUD, '_98') PUNTO_MUESTREO,
-                ANO,
-                MES,
-                DIA,
+                CAST(ANO AS INTEGER) AS ANO,
+                CAST(MES AS INTEGER) AS MES,
+                CAST(DIA AS INTEGER) AS DIA,
                 CAST(RIGHT(HORA, 2) AS INTEGER) AS H,
                 VALIDEZ
             FROM METEO2
