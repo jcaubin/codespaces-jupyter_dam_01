@@ -11,7 +11,7 @@ URL_PORTUS = "https://portus.puertos.es/portussvr/api/lastData/station"
 PORTUS_ESTACIONES_URL = "https://portus.puertos.es/portussvr/api/estaciones/rt/"
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
-DB_PATH = DATA_DIR / 'duck_test.db'
+DB_PATH = DATA_DIR / 'duck_test_202609090.db'
 
 
 def get_portus_current_data(station: int=2820) -> pd.DataFrame:

@@ -15,7 +15,7 @@ OUTPUT_DIR = '/var/www/html/meteo'
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
 DATA_DIR = PROJECT_ROOT / "data"
-DB_PATH = DATA_DIR / 'duck_test.db'
+DB_PATH = DATA_DIR / 'duck_test_202609090.db'
 
 
 def informe_magnitud(magnitud, page_name, limites = []):
@@ -24,7 +24,7 @@ def informe_magnitud(magnitud, page_name, limites = []):
         with duckdb.connect(DB_PATH) as conn:
                 magnitud_nombre, unidad = conn.sql(f"""
                         SELECT  PARAMETRO, UNIDAD
-                        FROM duck_test.main.magnitudes
+                        FROM magnitudes
                         WHERE CODIGO = {magnitud}
                         """).fetchone()
                 df = conn.sql(f"""
@@ -65,6 +65,56 @@ def informe_magnitud(magnitud, page_name, limites = []):
                 output_file.write(template.render(plotly_jinja_data))
         print(f"Archivo generado: {output_html_path}")
 
+
+def informe_portus_magnitud(magnitud, page_name, limites = []):
+        print(f"Generando informe desde {DB_PATH} ")
+
+        with duckdb.connect(DB_PATH) as conn:
+                magnitud_nombre, unidad = conn.sql(f"""
+                        select p.nombreParametro , p.unidad 
+                        from duck_test_202609090.main.PORTUS p
+                        where p.id = {magnitud}
+                        """).fetchone()
+                df = conn.sql(f"""
+                        SELECT fecha, e.nombre , nombreParametro,valor, factor, unidad, (cast(valor as double)/factor) valor_calc
+                        FROM duck_test_202609090.main.PORTUS p
+                        left join duck_test_202609090.main.PORTUS_ESTACIONES e on e.id = p.station 
+                        where p.id = {magnitud}
+                        and e.id in [1414, 1421, 2442, 2446]
+                        and p.valor is not null
+                        and date_diff ('hour',fecha, current_localtimestamp()) < (25);
+                """).df()      
+                fig = px.line(df, x="fecha", y="valor_calc", color='nombre', title='Temperaturas',template='plotly_dark')
+
+                df = conn.sql(f"""
+                        SELECT fecha, e.nombre , nombreParametro,valor, factor, unidad, (cast(valor as double)/factor) valor_calc
+                        FROM duck_test_202609090.main.PORTUS p
+                        left join duck_test_202609090.main.PORTUS_ESTACIONES e on e.id = p.station 
+                        where p.id = {magnitud}
+                        and e.id in [1414, 1421, 2442, 2446]
+                        and p.valor is not null
+                        and date_diff ('hour',fecha, current_localtimestamp()) < (7*24)+1;
+                """).df()   
+                fig2 = px.line(df, x="fecha", y="valor_calc", color='nombre', title='Temperaturas',template='plotly_dark')
+
+                for limite in limites:
+                        fig.add_hline(y=limite, line_dash='dash', line_color='red', annotation_text='', annotation_position='top right', line_width=1)
+                        fig2.add_hline(y=limite, line_dash='dash', line_color='red', annotation_text='', annotation_position='top right', line_width=1)   
+                
+        plotly_jinja_data = {
+                "fig":fig.to_html(full_html=False, include_plotlyjs=False , default_width='100%'), 
+                "date" : datetime.now().strftime('%Y-%m-%d %H:%M:%S '),
+                "title": f"{magnitud_nombre}",
+                "fig2":fig2.to_html(full_html=False, include_plotlyjs=False, default_width='100%'),
+                }
+
+        environment = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
+        template = environment.get_template("plotly.html")
+        output_html_path=f"{OUTPUT_DIR}/{page_name}.html"
+        with open(output_html_path, "w", encoding="utf-8") as output_file:
+                output_file.write(template.render(plotly_jinja_data))
+        print(f"Archivo generado: {output_html_path}")        
+
 if __name__=='__main__' :
         informe_magnitud(magnitud=12, page_name='nox', limites=[200])
         informe_magnitud(magnitud=10, page_name='pm10', limites=[50])
@@ -73,5 +123,7 @@ if __name__=='__main__' :
         informe_magnitud(magnitud=88, page_name='radiacion') #radiacion
         informe_magnitud(magnitud=83, page_name='temperaturas') #temperatura
         informe_magnitud(magnitud=86, page_name='humedad') #humedad relativa
+        informe_portus_magnitud(magnitud=38, page_name='portus_temperaturas') #temperatura agua
+
         
 

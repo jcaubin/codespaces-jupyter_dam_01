@@ -17,7 +17,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 MAESTRAS_DIR = PROJECT_ROOT / "maestras"
 SCHEMA_PATH = PROJECT_ROOT / "sql" / "001_schema.sql"
 
-DB_PATH = DATA_DIR / 'duck_test.db'
+DB_PATH = DATA_DIR / 'duck_test_202609090.db'
 
 ULR_CALAIR_CSV = "https://datos.madrid.es/dataset/212531-0-calidad-aire-tiempo-real/resource/212531-2-calidad-aire-tiempo-real/download/212531-2-calidad-aire-tiempo-real.csv"
 URL_ESTACIONES_CALAIR = "https://datos.madrid.es/dataset/212629-0-estaciones-control-aire/resource/212629-0-estaciones-control-aire-csv/download/212629-0-estaciones-control-aire-csv.csv"
@@ -217,9 +217,15 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
             INNER JOIN magnitudes m
                 ON m.CODIGO = tv.MAGNITUD;
             """
-        )
+        )       
+        print("Datos meteorológicos procesados correctamente.")
+    except Exception as e:
+        print(f"Error al procesar los datos meteorológicos: {e}")
+        raise
 
-        # Inserta los datos procesados en la tabla calair
+def consolidate_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
+    try:
+ # Inserta los datos procesados en la tabla calair
         conn.execute(
             """
             INSERT OR REPLACE INTO calair BY NAME
@@ -239,8 +245,14 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
                 ALTITUD,
                 PARAMETRO,
                 CURRENT_TIMESTAMP AS fx_data
-            FROM CALAIR24_PIVOT
-            UNION ALL
+            FROM CALAIR24_PIVOT;
+            """
+        )
+
+        # Inserta los datos procesados en la tabla calair
+        conn.execute(
+                    """
+            INSERT OR REPLACE INTO calair BY NAME
             SELECT
                 PROVINCIA,
                 MUNICIPIO,
@@ -258,12 +270,24 @@ def process_meteo_data(conn: duckdb.DuckDBPyConnection) -> None:
                 PARAMETRO,
                 CURRENT_TIMESTAMP AS fx_data
             FROM METEO24_PIVOT;
+                    """
+                )
+
+        #hack: problema con el merge
+        conn.execute(
+            """
+            UPDATE CALAIR
+            SET VALIDEZ = M.VALIDEZ 
+            FROM METEO24_PIVOT M
+            WHERE CALAIR.PUNTO_MUESTREO = m.PUNTO_MUESTREO and CALAIR.ANO = m.ANO  and CALAIR.DIA = m.DIA and CALAIR.H = m.H 
+            and CALAIR.VALIDEZ <> M.VALIDEZ 
             """
         )
-        print("Datos meteorológicos procesados correctamente.")
+        print("Datos meteorológicos consolidados correctamente.")
     except Exception as e:
-        print(f"Error al procesar los datos meteorológicos: {e}")
+        print(f"Error al consolidar los datos meteorológicos: {e}")
         raise
+
 
 def ensure_schema(conn: duckdb.DuckDBPyConnection) -> None:
     if not SCHEMA_PATH.exists():
@@ -308,7 +332,11 @@ def download_and_store_meteo_data() -> None:
         create_tables_maestras(conn)
         store_meteo_data(conn)
         process_meteo_data(conn)
-        print("Datos meteorológicos descargados y procesados correctamente.")
+
+        print("Datos meteorológicos descargados y procesados correctamente 1.")
+
+        consolidate_meteo_data(conn)
+        print("Datos meteorológicos descargados y procesados correctamente 2.")
     finally:
         conn.close()
 
